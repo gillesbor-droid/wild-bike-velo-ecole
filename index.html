@@ -1,0 +1,404 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Questionnaire Wild Bike sur la création de séances gratuites de vélo-école à La Seyne-sur-Mer.">
+  <title>Questionnaire vélo-école | Wild Bike</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #101713;
+      --green: #3f942b;
+      --green-dark: #236918;
+      --green-soft: #eaf6e5;
+      --paper: #fffef9;
+      --line: #cfe5c7;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 12% 8%, #dff4d6 0 7rem, transparent 7.1rem),
+        linear-gradient(145deg, #f9fff6, #edf7ea);
+      font-family: Arial, Helvetica, sans-serif;
+      line-height: 1.45;
+    }
+
+    main {
+      width: min(100% - 28px, 680px);
+      margin: 22px auto 48px;
+    }
+
+    header {
+      padding: 28px 24px 24px;
+      border-radius: 24px 24px 8px 8px;
+      color: white;
+      background: var(--ink);
+      box-shadow: 0 18px 55px rgb(26 72 18 / 14%);
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      margin-bottom: 18px;
+      color: #9ee879;
+      font-size: .82rem;
+      font-weight: 900;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+
+    .brand::before {
+      content: "";
+      width: 28px;
+      height: 16px;
+      border: 4px solid currentColor;
+      border-radius: 50%;
+      transform: skewX(-12deg);
+    }
+
+    h1 {
+      max-width: 570px;
+      margin: 0;
+      font-size: clamp(2rem, 8vw, 3.7rem);
+      line-height: .98;
+      letter-spacing: -.045em;
+      text-transform: uppercase;
+    }
+
+    header p {
+      margin: 18px 0 0;
+      color: #e5efe2;
+      font-size: 1.02rem;
+    }
+
+    .time {
+      display: inline-block;
+      margin-top: 18px;
+      padding: 7px 12px;
+      border-radius: 999px;
+      color: var(--ink);
+      background: #9ee879;
+      font-size: .88rem;
+      font-weight: 800;
+    }
+
+    form {
+      padding: 26px 22px 30px;
+      border: 1px solid var(--line);
+      border-top: 0;
+      border-radius: 8px 8px 24px 24px;
+      background: var(--paper);
+      box-shadow: 0 18px 55px rgb(26 72 18 / 14%);
+    }
+
+    fieldset {
+      min-width: 0;
+      margin: 0;
+      padding: 22px 0;
+      border: 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    fieldset:first-of-type { padding-top: 0; }
+
+    legend,
+    label.question {
+      display: block;
+      width: 100%;
+      margin-bottom: 12px;
+      padding: 0;
+      font-size: 1.05rem;
+      font-weight: 800;
+    }
+
+    .required::after { content: " *"; color: var(--green-dark); }
+
+    .choices {
+      display: grid;
+      gap: 9px;
+    }
+
+    .choice {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 12px 13px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: white;
+      cursor: pointer;
+    }
+
+    .choice:has(input:checked) {
+      border-color: var(--green);
+      background: var(--green-soft);
+      box-shadow: inset 4px 0 0 var(--green);
+    }
+
+    input[type="radio"],
+    input[type="checkbox"] {
+      width: 19px;
+      height: 19px;
+      margin: 1px 0 0;
+      accent-color: var(--green-dark);
+      flex: 0 0 auto;
+    }
+
+    input[type="text"],
+    input[type="tel"],
+    input[type="email"] {
+      width: 100%;
+      margin-top: 8px;
+      padding: 13px 14px;
+      border: 1px solid #aac9a0;
+      border-radius: 10px;
+      color: var(--ink);
+      background: white;
+      font: inherit;
+    }
+
+    input:focus-visible, button:focus-visible {
+      outline: 3px solid #97dc77;
+      outline-offset: 2px;
+    }
+
+    .hint {
+      margin: -4px 0 12px;
+      color: #526052;
+      font-size: .88rem;
+    }
+
+    #contact-details {
+      display: none;
+      margin-top: 14px;
+      padding: 14px;
+      border-radius: 14px;
+      background: var(--green-soft);
+    }
+
+    #contact-details.visible { display: block; }
+    #contact-details label { display: block; margin: 0 0 12px; font-weight: 700; }
+
+    .privacy {
+      margin: 20px 0 18px;
+      color: #455045;
+      font-size: .83rem;
+    }
+
+    button {
+      width: 100%;
+      padding: 16px 20px;
+      border: 0;
+      border-radius: 14px;
+      color: white;
+      background: var(--green-dark);
+      font: 900 1.02rem Arial, Helvetica, sans-serif;
+      cursor: pointer;
+      box-shadow: 0 8px 0 #133f0c;
+    }
+
+    button:active { transform: translateY(4px); box-shadow: 0 4px 0 #133f0c; }
+    button:disabled { cursor: wait; opacity: .65; }
+
+    .status {
+      display: none;
+      margin-top: 18px;
+      padding: 16px;
+      border-radius: 12px;
+      font-weight: 700;
+    }
+
+    .status.success { display: block; color: #174b10; background: #dff3d7; }
+    .status.error { display: block; color: #7b1f18; background: #fde8e6; }
+    .hp { position: absolute; left: -10000px; }
+
+    @media (min-width: 620px) {
+      main { margin-top: 42px; }
+      header { padding: 38px 42px 34px; }
+      form { padding: 34px 42px 38px; }
+      .choices.two { grid-template-columns: repeat(2, 1fr); }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <div class="brand">Wild Bike</div>
+      <h1>Et si le vélo devenait plus facile pour vous&nbsp;?</h1>
+      <p>Wild Bike étudie la création de séances gratuites pour les adultes de La Seyne-sur-Mer. Vos réponses nous aideront à construire une action vraiment utile.</p>
+      <span class="time">Questionnaire anonyme · 2 minutes</span>
+    </header>
+
+    <form id="survey" action="https://formsubmit.co/ajax/wildbike83@gmail.com" method="post">
+      <input type="hidden" name="_subject" value="Nouvelle réponse - Questionnaire vélo-école Wild Bike">
+      <input type="hidden" name="_template" value="table">
+      <input type="hidden" name="_captcha" value="false">
+      <input class="hp" type="text" name="_honey" tabindex="-1" autocomplete="off">
+
+      <fieldset>
+        <legend class="required">Dans quel secteur habitez-vous&nbsp;?</legend>
+        <div class="choices two">
+          <label class="choice"><input type="radio" name="Secteur" value="Berthe" required> Berthe</label>
+          <label class="choice"><input type="radio" name="Secteur" value="Centre-ville" required> Centre-ville</label>
+          <label class="choice"><input type="radio" name="Secteur" value="Autre secteur de La Seyne" required> Autre secteur de La Seyne</label>
+          <label class="choice"><input type="radio" name="Secteur" value="Autre commune" required> Autre commune</label>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend class="required">Aujourd'hui, faire du vélo seul, c'est...</legend>
+        <div class="choices">
+          <label class="choice"><input type="radio" name="Niveau" value="Je ne sais pas rouler" required> Je ne sais pas rouler</label>
+          <label class="choice"><input type="radio" name="Niveau" value="Je roule un peu, avec de l'aide" required> Je roule un peu, avec de l'aide</label>
+          <label class="choice"><input type="radio" name="Niveau" value="Je sais rouler mais je manque de confiance" required> Je sais rouler mais je manque de confiance</label>
+          <label class="choice"><input type="radio" name="Niveau" value="Je roule sans difficulté" required> Je roule sans difficulté</label>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend class="required">Avez-vous utilisé un vélo ces 12 derniers mois&nbsp;?</legend>
+        <div class="choices two">
+          <label class="choice"><input type="radio" name="Vélo utilisé ces 12 derniers mois" value="Oui" required> Oui</label>
+          <label class="choice"><input type="radio" name="Vélo utilisé ces 12 derniers mois" value="Non" required> Non</label>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Qu'est-ce qui vous bloque aujourd'hui&nbsp;?</legend>
+        <p class="hint">Plusieurs réponses possibles.</p>
+        <div class="choices two">
+          <label class="choice"><input type="checkbox" name="Freins" value="Jamais appris"> Je n'ai jamais appris</label>
+          <label class="choice"><input type="checkbox" name="Freins" value="Peur de tomber"> J'ai peur de tomber</label>
+          <label class="choice"><input type="checkbox" name="Freins" value="Circulation"> La circulation me fait peur</label>
+          <label class="choice"><input type="checkbox" name="Freins" value="Pas de vélo"> Je n'ai pas de vélo</label>
+          <label class="choice"><input type="checkbox" name="Freins" value="Coût"> Le coût</label>
+          <label class="choice"><input type="checkbox" name="Freins" value="Santé"> Ma santé</label>
+          <label class="choice"><input type="checkbox" name="Freins" value="Garde d'enfant"> La garde de mon enfant</label>
+          <label class="choice"><input type="checkbox" name="Freins" value="Aucun"> Aucun frein</label>
+        </div>
+        <label class="question" for="autre-frein" style="margin-top: 12px; font-size: .92rem;">Autre frein</label>
+        <input id="autre-frein" type="text" name="Autre frein" maxlength="180">
+      </fieldset>
+
+      <fieldset>
+        <legend>Dans quelle situation le vélo vous serait-il utile&nbsp;?</legend>
+        <p class="hint">Plusieurs réponses possibles.</p>
+        <div class="choices two">
+          <label class="choice"><input type="checkbox" name="Usages souhaités" value="Accompagner mes enfants"> Accompagner mes enfants</label>
+          <label class="choice"><input type="checkbox" name="Usages souhaités" value="Activité physique"> Faire une activité physique</label>
+          <label class="choice"><input type="checkbox" name="Usages souhaités" value="Déplacements quotidiens"> Me déplacer au quotidien</label>
+          <label class="choice"><input type="checkbox" name="Usages souhaités" value="Emploi ou formation"> Aller au travail ou en formation</label>
+          <label class="choice"><input type="checkbox" name="Usages souhaités" value="Loisirs"> Pour mes loisirs</label>
+          <label class="choice"><input type="checkbox" name="Usages souhaités" value="Aucun besoin"> Je n'en ai pas besoin</label>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend class="required">Participeriez-vous à 6 séances gratuites avec prêt du vélo et du casque&nbsp;?</legend>
+        <div class="choices two">
+          <label class="choice"><input type="radio" name="Intérêt pour 6 séances gratuites" value="Oui" required> Oui</label>
+          <label class="choice"><input type="radio" name="Intérêt pour 6 séances gratuites" value="Peut-être" required> Peut-être</label>
+          <label class="choice"><input type="radio" name="Intérêt pour 6 séances gratuites" value="Non" required> Non</label>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Quels moments seraient possibles pour vous&nbsp;?</legend>
+        <p class="hint">Plusieurs réponses possibles.</p>
+        <div class="choices two">
+          <label class="choice"><input type="checkbox" name="Disponibilités" value="Semaine matin"> En semaine le matin</label>
+          <label class="choice"><input type="checkbox" name="Disponibilités" value="Semaine après-midi"> En semaine l'après-midi</label>
+          <label class="choice"><input type="checkbox" name="Disponibilités" value="Semaine fin de journée"> En semaine en fin de journée</label>
+          <label class="choice"><input type="checkbox" name="Disponibilités" value="Samedi"> Le samedi</label>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend class="required">Quel type de groupe préféreriez-vous&nbsp;?</legend>
+        <div class="choices">
+          <label class="choice"><input type="radio" name="Préférence de groupe" value="Groupe de femmes" required> Un groupe de femmes</label>
+          <label class="choice"><input type="radio" name="Préférence de groupe" value="Groupe mixte" required> Un groupe mixte</label>
+          <label class="choice"><input type="radio" name="Préférence de groupe" value="Indifférent" required> Cela m'est indifférent</label>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend class="required">Pour finir, souhaitez-vous être contacté pour une séance test gratuite&nbsp;?</legend>
+        <div class="choices two">
+          <label class="choice"><input type="radio" name="Demande de contact" value="Oui" required> Oui</label>
+          <label class="choice"><input type="radio" name="Demande de contact" value="Non" required> Non</label>
+        </div>
+
+        <div id="contact-details">
+          <label>Prénom
+            <input type="text" name="Prénom" maxlength="80" autocomplete="given-name">
+          </label>
+          <label>Téléphone ou email
+            <input type="text" name="Téléphone ou email" maxlength="120" autocomplete="email">
+          </label>
+          <label class="choice">
+            <input id="consent" type="checkbox" name="Consentement" value="J'accepte d'être recontacté par Wild Bike">
+            J'accepte que Wild Bike utilise ces coordonnées uniquement pour me recontacter au sujet de la vélo-école.
+          </label>
+        </div>
+      </fieldset>
+
+      <p class="privacy">Les réponses anonymes servent uniquement au diagnostic vélo-école de Wild Bike. Les coordonnées facultatives ne seront utilisées que pour proposer une séance test et ne seront pas transmises.</p>
+      <button type="submit">Envoyer mes réponses</button>
+      <div id="status" class="status" role="status" aria-live="polite"></div>
+    </form>
+  </main>
+
+  <script>
+    const form = document.querySelector('#survey');
+    const contactDetails = document.querySelector('#contact-details');
+    const consent = document.querySelector('#consent');
+    const submitButton = form.querySelector('button[type="submit"]');
+    const status = document.querySelector('#status');
+
+    form.querySelectorAll('input[name="Demande de contact"]').forEach((input) => {
+      input.addEventListener('change', () => {
+        const wantsContact = input.value === 'Oui' && input.checked;
+        contactDetails.classList.toggle('visible', wantsContact);
+        consent.required = wantsContact;
+      });
+    });
+
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      submitButton.disabled = true;
+      submitButton.textContent = 'Envoi en cours...';
+      status.className = 'status';
+
+      try {
+        const response = await fetch(form.action, {
+          method: 'POST',
+          body: new FormData(form),
+          headers: { Accept: 'application/json' }
+        });
+
+        if (!response.ok) throw new Error('Échec de l’envoi');
+
+        form.reset();
+        contactDetails.classList.remove('visible');
+        consent.required = false;
+        status.textContent = 'Merci. Votre réponse a bien été enregistrée.';
+        status.className = 'status success';
+        status.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      } catch (error) {
+        status.textContent = 'L’envoi n’a pas fonctionné. Vérifiez votre connexion et réessayez.';
+        status.className = 'status error';
+      } finally {
+        submitButton.disabled = false;
+        submitButton.textContent = 'Envoyer mes réponses';
+      }
+    });
+  </script>
+</body>
+</html>
